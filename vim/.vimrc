@@ -76,7 +76,7 @@ augroup END
 runtime! debian.vim
 " Uncomment the next line to make Vim more Vi-compatible
 " NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
+" options, so any ther options should be set AFTER setting 'compatible'.
 "set compatible
 
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
@@ -115,3 +115,34 @@ set showmatch		" Show matching brackets.
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
+
+"set the runtime path to include Vundle and initialize
+set runtimepath+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+"  let Vundle manage Vundle, required
+ Plugin 'VundleVim/Vundle.vim'
+ Plugin 'scrooloose/nerdtree'
+"All of your Plugins must be added before the following line
+ call vundle#end()            " required
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+" see :h vundle for more details or wiki for FAQ
+"
+"------------------------NERDTREE-SETUP--------------------------------------------------
+"--------------------------------------------------------------------------------------
+autocmd vimenter * NERDTree "open a NERDTree automatically when vim starts up
+
+"open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"let g:NERDTreeWinSize=35 "sets the size of nerdtree window
+"----------------------------------------------------------------------------------------------------------

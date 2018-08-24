@@ -167,7 +167,6 @@ call vundle#begin()
  Plugin 'ap/vim-css-color' "for css highlighting colour
  Plugin 'mileszs/ack.vim'  
  Plugin 'majutsushi/tagbar'
- Plugin 'clouduan/vim-searchme' "for searching text in browser inside vim
  Plugin 'tpope/vim-surround' "for surrounding brackets quotes
  Plugin 'terryma/vim-multiple-cursors' "for multiple cursors
  Plugin 'epilande/vim-react-snippets' "react js snippets
@@ -316,11 +315,3 @@ let g:comfortable_motion_scroll_up_key = "k"
 "----------------------------------------------------
 
 let g:ackprg = "ag --vimgrep"
-
-"----------------------------clouduan/vim-searchme---------------
-noremap  <Leader>ss :<C-u>SearchCurrentText<CR>
-vnoremap <Leader>sv :<C-u>SearchVisualText<CR>
-noremap  <Leader>sm :Search<Space>
-
-let g:browser_path = '/usr/bin/google-chrome'
-let g:search_engine = 'google'

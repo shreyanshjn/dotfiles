@@ -11,7 +11,8 @@ set pastetoggle=<F2>
 "changing set paste and set nopaste easily using <F2> 
 
 "set noswapfile
-
+set virtualedit=onemore "allow cursor to go to end of the line
+set wildmenu "autocomplete menu
 "next line is for spelling check;use <F6>
 map <special> <F6> :setlocal spell! spelllang=en_US<CR>    
 
@@ -24,6 +25,12 @@ set tabstop=4 "setting tab as four spaces
 set softtabstop=4
 set shiftwidth=4
 
+set omnifunc=csscomplete#CompleteCSS "for css auto complete
+"mapped css auto completion key
+set omnifunc=htmlcomplete#CompleteTags "for html auto complete
+
+nnoremap gf <c-w>gf
+"gf open files in current window and <c-w>gf in new window here i mapped gf to open file in new window
 "the next line  is used to map jj as an alternative to escape key
 inoremap <special> jj <ESC>
 "useful for handling the permission denied error by using :W
@@ -35,13 +42,13 @@ command W w !sudo dd of=%
 "highlight ColorColumn ctermbg=blue
 
 "html tags shortcuts
-autocmd Filetype html inoremap ;i <em></em><Space><++><Esc>FeT>i
-autocmd Filetype html inoremap ;b <b></b><Space><++><Esc>FbT>i
-autocmd Filetype html inoremap ;p <p><Enter></p><Space><++><Esc>1kA<Enter>
-autocmd Filetype html inoremap ;h <html> <Enter> <head> <Enter></head><Enter> <body> <Enter> </body> <Enter></html><Esc>2kA
-autocmd Filetype html inoremap ;d <div></div><Space><Esc>FvT>i
-autocmd Filetype html inoremap ;s <span></span><Space><++><Esc>FnT>i
-autocmd Filetype html inoremap ;a <a href=""><++></a><Space><++><Esc>F"i
+" autocmd Filetype html inoremap ;i <em></em><Space><++><Esc>FeT>i
+" autocmd Filetype html inoremap ;b <b></b><Space><++><Esc>FbT>i
+" autocmd Filetype html inoremap ;p <p><Enter></p><Space><++><Esc>1kA<Enter>
+" autocmd Filetype html inoremap ;h <html> <Enter> <head> <Enter></head><Enter> <body> <Enter> </body> <Enter></html><Esc>2kA
+" autocmd Filetype html inoremap ;d <div></div><Space><Esc>FvT>i
+" autocmd Filetype html inoremap ;s <span></span><Space><++><Esc>FnT>i
+" autocmd Filetype html inoremap ;a <a href=""><++></a><Space><++><Esc>F"i
 
 "for compiling c++ program  directly in vim using <F9> in normal mode 
 nnoremap <special> <F9> :!g++ -std=c++11 % -Wall -g -o %.out && ./%.out<CR>
@@ -49,7 +56,6 @@ nnoremap <special> <F9> :!g++ -std=c++11 % -Wall -g -o %.out && ./%.out<CR>
 "cpp shortcuts
 autocmd Filetype cpp inoremap ;h #include<iostream><Enter> using namespace std; <Enter> int main() <Enter> { <Enter>}<Esc>1kA<Enter> 
 autocmd Filetype cpp inoremap ;f int (<++>) <Enter> { <Enter><++><Enter>}<Enter><++><Esc>4kf(i
-
 "for compiling python program inside  vim using <F9>
 "set autowritennoremap <special> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
@@ -141,34 +147,36 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 "  let Vundle manage Vundle, required
  Plugin 'VundleVim/Vundle.vim'
+ Plugin 'mhartington/oceanic-next' "oceanic-next colorscheme
+ Plugin 'lifepillar/vim-solarized8' "solarized colorscheme
  Plugin 'scrooloose/nerdtree'
+ Plugin 'Valloric/YouCompleteMe' "auto complete in vim
+ Plugin 'severin-lemaignan/vim-minimap' "vim minimap
  Plugin 'ervandew/supertab'
  Plugin 'godlygeek/tabular'
- Plugin 'mhartington/oceanic-next' "oceanic-next colorscheme
  Plugin 'pangloss/vim-javascript'
  Plugin 'maxmellon/vim-jsx-pretty'
  Plugin 'editorconfig/editorconfig-vim' "need to check
  Plugin 'airblade/vim-gitgutter' "real time git diff
- Plugin 'Townk/vim-autoclose' "auto-completion of brackets
- Plugin 'mattn/emmet-vim'
+ Plugin 'Townk/vim-autoclose' "auto-completion of brackets Plugin 'mattn/emmet-vim'
  Plugin 'vim-airline/vim-airline' "displaying details at top and bottom 
  Plugin 'Valloric/MatchTagAlways'
  Plugin 'airbnb/javascript'
  Plugin 'alvan/vim-closetag'
- Plugin 'vim-syntastic/syntastic'
+ Plugin 'w0rp/ale' "syntax checker
  Plugin 'ctrlpvim/ctrlp.vim' "for finding files inside vim 
  Plugin 'junegunn/fzf.vim'   "better finder than CtrlP
  Plugin 'tpope/vim-fugitive' "easily solving merge conflicts
  Plugin 'tpope/vim-commentary' "for commenting files
- Plugin 'lifepillar/vim-solarized8' "solarized colorscheme
- Plugin 'yggdroot/indentline' "indenting lines
  Plugin 'tpope/vim-repeat'  "repeating last command using dot (.)
+ Plugin 'tpope/vim-surround' "for surrounding brackets quotes
+ Plugin 'yggdroot/indentline' "indenting lines
  Plugin 'yuttie/comfortable-motion.vim' "for smooth scrolling
  Plugin 'ap/vim-css-color' "for css highlighting colour
- Plugin 'mileszs/ack.vim'  
- Plugin 'majutsushi/tagbar'
- Plugin 'tpope/vim-surround' "for surrounding brackets quotes
- Plugin 'terryma/vim-multiple-cursors' "for multiple cursors
+ Plugin 'mhinz/vim-startify' "fancy start screen for vim
+ "Plugin 'mileszs/ack.vim'  
+ "Plugin 'majutsushi/tagbar'
+ Plugin 'terryma/vim-multiple-cursors' "for multiple cursors Plugin
  Plugin 'epilande/vim-react-snippets' "react js snippets
  " Ultisnips
  Plugin 'SirVer/ultisnips' "reactjs snippets
@@ -206,8 +214,8 @@ nmap <F3> :NERDTreeToggle<CR>
  set t_Co=256
  let g:airline_theme='oceanicnext'
 "--------------------------------------------------------------------------------
-set background=dark
-colorscheme solarized8_flat "OceanicNext
+set background=light
+colorscheme OceanicNext "solarized8_flat
 "You can change colorscheme by selecting any value given  in
 "/usr/share/vim/vim74/colors
 
@@ -224,23 +232,6 @@ augroup END
 "------------------------jsx highlighting plugin setup------------------------
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 "-----------------------------------------------------------------------------------------
-
-"--------------------------synastic-setup--------------------------------------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers=['eslint']
-" autofix with eslint
-"let g:syntastic_javascript_eslint_args = ['--fix']
-"function! SyntasticCheckHook(errors)
- " checktime
-"endfunction
-"------------------------------------------------------------------------------------------------------------------
 
 "-----------------------emmet-vim
 "setup-------------------------------------------------------------
@@ -315,3 +306,17 @@ let g:comfortable_motion_scroll_up_key = "k"
 "----------------------------------------------------
 
 let g:ackprg = "ag --vimgrep"
+"---------ale-setup----------------
+let g:ale_sign_column_always = 1 "for always showing the side error column line
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\  'jsx': ['eslint']
+\}
+"fixes errors on saving
+let g:ale_fixers = {
+\  'javascript': ['eslint'],
+\  'jsx': ['eslint']
+\}
+"let g:ale_fix_on_save = 1
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>

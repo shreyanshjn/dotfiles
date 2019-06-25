@@ -1,4 +1,6 @@
 set number
+set relativenumber
+set autoread "to auto refresh file if changed
 "uncomment the next two lines to set cursorline and cursorcolumn
 "set cursorline
 "set cursorcolumn
@@ -24,7 +26,6 @@ set expandtab
 set tabstop=4 "setting tab as four spaces
 set softtabstop=4
 set shiftwidth=4
-
 set omnifunc=csscomplete#CompleteCSS "for css auto complete
 "mapped css auto completion key
 set omnifunc=htmlcomplete#CompleteTags "for html auto complete
@@ -54,8 +55,9 @@ command W w !sudo dd of=%
 nnoremap <special> <F9> :!g++ -std=c++11 % -Wall -g -o %.out && ./%.out<CR>
 
 "cpp shortcuts
-autocmd Filetype cpp inoremap ;h #include<iostream><Enter> using namespace std; <Enter> int main() <Enter> { <Enter>}<Esc>1kA<Enter> 
-autocmd Filetype cpp inoremap ;f int (<++>) <Enter> { <Enter><++><Enter>}<Enter><++><Esc>4kf(i
+autocmd Filetype cpp inoremap ;h #include <bits/stdc++.h><Enter> using namespace std; <Enter>typedef long long int ll;<Enter>typedef unsigned long long int ull;<Enter>typedef pair <int,int> pt;<Enter>typedef pair <int,string> ps;<Enter>#define make_pair mp<Enter> int main() <Enter> { <Enter>int t;<Enter>cin>>t;<Enter>while(t!=0){<Enter>t--;<Enter>}<Enter>cerr<<"Time elapsed"<<1.0*clock()/CLOCKS_PER_SEC<<"s\n";<Enter>return 0;<Enter>}<Esc>5kA<Enter> 
+    " autocmd Filetype cpp inoremap ;f int (<++>) <Enter> { <Enter><++><Enter>}<Enter><++><Esc>4kf(i
+autocmd FileType cpp inoremap ;f for(int i=0;i<n;i++) <Enter> {<Enter>}
 "for compiling python program inside  vim using <F9>
 "set autowritennoremap <special> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
@@ -156,7 +158,7 @@ call vundle#begin()
  Plugin 'godlygeek/tabular'
  Plugin 'pangloss/vim-javascript'
  Plugin 'maxmellon/vim-jsx-pretty'
- Plugin 'editorconfig/editorconfig-vim' "need to check
+ Plugin 'editorconfig/editorconfig-vim' "for .editorconfig file
  Plugin 'airblade/vim-gitgutter' "real time git diff
  Plugin 'Townk/vim-autoclose' "auto-completion of brackets Plugin 'mattn/emmet-vim'
  Plugin 'vim-airline/vim-airline' "displaying details at top and bottom 
@@ -173,13 +175,17 @@ call vundle#begin()
  Plugin 'yggdroot/indentline' "indenting lines
  Plugin 'yuttie/comfortable-motion.vim' "for smooth scrolling
  Plugin 'ap/vim-css-color' "for css highlighting colour
+ Plugin 'mustache/vim-mustache-handlebars' "for .hbs highlighting
+ Plugin 'plasticboy/vim-markdown' "for markdown
+ Plugin 'prettier/vim-prettier' 
  Plugin 'mhinz/vim-startify' "fancy start screen for vim
  "Plugin 'mileszs/ack.vim'  
  "Plugin 'majutsushi/tagbar'
  Plugin 'terryma/vim-multiple-cursors' "for multiple cursors Plugin
  Plugin 'epilande/vim-react-snippets' "react js snippets
  " Ultisnips
- Plugin 'SirVer/ultisnips' "reactjs snippets
+ Plugin 'SirVer/ultisnips' "snippets for vim
+ Plugin 'Yggdroot/indentLine' "indendation with vertical lines
  " Trigger configuration (Optional)
  let g:UltiSnipsExpandTrigger="<C-l>"
  "All of your Plugins must be added before the following line
@@ -192,7 +198,10 @@ call vundle#begin()
 " :PluginClean      - confirms removal of unused plugins; append `!` to
 " auto-approve removal
 " see :h vundle for more details or wiki for FAQ
-"
+
+"ejs formatting
+au BufNewFile,BufRead *.ejs set filetype=html
+
 "------------------------NERDTREE-SETUP-------------------------------------------------
 "--------------------------------------------------------------------------------------
 autocmd vimenter * NERDTree "open a NERDTree automatically when vim starts up
@@ -310,7 +319,8 @@ let g:ackprg = "ag --vimgrep"
 let g:ale_sign_column_always = 1 "for always showing the side error column line
 let g:ale_linters = {
 \  'javascript': ['eslint'],
-\  'jsx': ['eslint']
+\  'jsx': ['eslint'],
+\  'cpp': ['gcc']
 \}
 "fixes errors on saving
 let g:ale_fixers = {
@@ -320,3 +330,21 @@ let g:ale_fixers = {
 "let g:ale_fix_on_save = 1
 nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
+let g:ale_cpp_gcc_executable='gcc'
+let g:ale_cpp_gcc_options='-std=c++14 -Wall'
+
+"Indent Lines vim
+let g:indentLine_color_term = 170
+let g:indentLine_char = '┆'
+let g:indentLine_bgcolor_term = 202
+let g:indentLine_bgcolor_gui = '#FF5F00'
+
+"---------------------plasticboy-markdown setup--------------
+let g:vim_markdown_auto_insert_bullets = 1
+"------------------ultisnips-setup-----------------
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-a>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"

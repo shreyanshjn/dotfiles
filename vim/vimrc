@@ -152,7 +152,8 @@ call vundle#begin()
  Plugin 'mhartington/oceanic-next' "oceanic-next colorscheme
  Plugin 'lifepillar/vim-solarized8' "solarized colorscheme
  Plugin 'scrooloose/nerdtree'
- Plugin 'Valloric/YouCompleteMe' "auto complete in vim
+ " Plugin 'Valloric/YouCompleteMe' "auto complete in vim
+ Plugin 'ycm-core/YouCompleteMe'
  Plugin 'severin-lemaignan/vim-minimap' "vim minimap
  Plugin 'ervandew/supertab'
  Plugin 'godlygeek/tabular'
@@ -178,6 +179,7 @@ call vundle#begin()
  Plugin 'mustache/vim-mustache-handlebars' "for .hbs highlighting
  Plugin 'plasticboy/vim-markdown' "for markdown
  Plugin 'prettier/vim-prettier' 
+ Plugin 'sjl/gundo.vim' 
  Plugin 'mhinz/vim-startify' "fancy start screen for vim
  "Plugin 'mileszs/ack.vim'  
  "Plugin 'majutsushi/tagbar'
@@ -185,6 +187,7 @@ call vundle#begin()
  Plugin 'epilande/vim-react-snippets' "react js snippets
  " Ultisnips
  Plugin 'SirVer/ultisnips' "snippets for vim
+ Plugin 'Glench/Vim-Jinja2-Syntax' "jing2 highlighting for vim.
  Plugin 'Yggdroot/indentLine' "indendation with vertical lines
  " Trigger configuration (Optional)
  let g:UltiSnipsExpandTrigger="<C-l>"
